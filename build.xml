@@ -1,0 +1,66 @@
+<project name="CRC++" default="dist" basedir=".">
+  <description>
+    Creates the distribution for CRC++
+  </description>
+
+  <property name="version" value="1.0"/>
+  <property name="dist" location="dist"/>
+  <property name="winroot" location="windist"/>
+  <property name="unixroot"  location="unixdist"/>
+
+  <target name="init">
+    <tstamp/>
+    <property name="windist" location="${winroot}/CRC++${version}"/>
+    <property name="unixdist"  location="${unixroot}/CRC++${version}"/>
+    <mkdir dir="${dist}"/>
+    <mkdir dir="${windist}"/>
+    <mkdir dir="${unixdist}"/>
+  </target>
+
+  <target name="dist" depends="init" description="Create the distribution">
+     <patternset id="non.objects">
+	    <exclude name="*dist/**"/>
+	    <exclude name="*.ncb"/>
+	    <exclude name="*.opt"/>
+	    <exclude name="**/Debug/*"/>
+	    <exclude name="**/Release/*"/>
+	    <exclude name="**/*.o"/>
+	    <exclude name="**/*.exe"/>
+	    <exclude name="**/*.plg"/>
+	    <exclude name="**/*.sh"/>
+    	<exclude name="**/Win32/**"/>
+      </patternset>
+ 
+  	<copy todir="${windist}" includeEmptyDirs="No">
+	  <fileset dir=".">
+    	<patternset refid="non.objects"/>
+    	<exclude name="**/doc/html/*"/>
+	  </fileset>
+  	</copy>
+  	
+  	<zip destfile="${dist}/CRC++${version}.zip" basedir="${winroot}" includes="CRC++${version}/**"/>
+	<zip destfile="${dist}/CppUnitWinLibs.zip" basedir="." includes="Win32/**"/>
+  	
+  	<copy todir="${unixdist}" includeEmptyDirs="No">
+	  <fileset dir=".">
+    	<patternset refid="non.objects"/>
+	    <exclude name="*.dsw"/>
+	    <exclude name="**/*.dsp"/>
+	    <exclude name="**/*.vbs"/>
+    	<exclude name="**/doc/*.chm"/>
+	  </fileset>
+  	</copy>
+  	<fixcrlf srcdir="${unixdist}" eol="lf">
+  	</fixcrlf>
+
+  	<tar destfile="${dist}/CRC++${version}.tar.gz" basedir="${unixroot}" includes="CRC++${version}/**" compression="gzip"/>
+  	<tar destfile="${dist}/CRC++${version}.tar.bz2" basedir="${unixroot}" includes="CRC++${version}/**" compression="bzip2"/>
+
+  </target>
+
+  <target name="clean"  description="clean up" >
+    <delete dir="${winroot}"/>
+    <delete dir="${unixroot}"/>
+  </target>
+</project>
+
