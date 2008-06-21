@@ -49,7 +49,7 @@ public:
 
 	inline operator T() const { return value; }
 	inline bool          hibit  () const { return (value&1) != 0; }
-	inline unsigned char hibyte () const { return value & 0xFF; }
+	inline unsigned char hibyte () const { return (unsigned char) (value & 0xFF); }
 	inline void sethibyte (unsigned char data) { value = data ; }
 	inline T shift (int n) const  { return value >> n; }
 
