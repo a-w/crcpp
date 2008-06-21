@@ -4,7 +4,7 @@
  * 
  * CRCTest.h: interface for the CRCTest class.
  * 
- * Copyright (c) 2003 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -40,7 +40,8 @@
 
 #include <string>
 //#include <exception>
-#include <cppunit/extensions/HelperMacros.h>
+#include <cxxtest/TestSuite.h>
+
   /**
 	* @class CRCTest
 	* @ingroup Tests
@@ -53,16 +54,8 @@
 	* CppUnit documentation can be found <a href="http://cppunit.sourceforge.net/">here</a>.
 	*/
 
-class CRCTest : public CppUnit::TestFixture  
+class CRCTest : public CxxTest::TestSuite  
 {
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-	CPPUNIT_TEST_SUITE( CRCTest );
-	CPPUNIT_TEST(testNetwork);
-	CPPUNIT_TEST(testNative);
-	CPPUNIT_TEST(testEthernet);
-	CPPUNIT_TEST_SUITE_END();
-#endif
-
 public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 	CRCTest();

@@ -4,7 +4,7 @@
  * 
  * CRCTest.cpp: implementation of the CRCTest class.
  * 
- * Copyright (c) 2003 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -25,12 +25,10 @@
 
 #include "CRCTest.h"
 
-#include "crc.h"
+#include "crcstream.h"
 #include <iostream>
 
-CPPUNIT_TEST_SUITE_REGISTRATION( CRCTest );
-
-extern "C" void sTestCRC() {}; // Allow to be referenced by unit test (reference "_sTestCRC")
+#include <cxxtest/RealDescriptions.h>
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -63,13 +61,13 @@ void CRCTest::testNative ()
 
 	// Basic test
 	cs << testPattern;
-	CPPUNIT_ASSERT (cs.CRC() == 0xD64E);
-	CPPUNIT_ASSERT (cs.result() == std::string("\xD6\x4E"));
+	TS_ASSERT (cs.CRC() == 0xD64E);
+	TS_ASSERT (cs.result() == std::string("\xD6\x4E"));
 
 	// Test the gen/check routine
 	sResult = cs.gen(testPattern);
-	CPPUNIT_ASSERT (sResult == std::string("\xD6\x4E"));
-	CPPUNIT_ASSERT (cs.check(testPattern+sResult));
+	TS_ASSERT (sResult == std::string("\xD6\x4E"));
+	TS_ASSERT (cs.check(testPattern+sResult));
 
 	std::cout << "OK." << std::endl;
 }
@@ -84,7 +82,7 @@ void CRCTest::testNetwork ()
 
 	// Basic test
 	cs << testPattern;
-	CPPUNIT_ASSERT (cs.result() == std::string("\x6E\x90"));
+	TS_ASSERT (cs.result() == std::string("\x6E\x90"));
 
 	char const * testData = "\x01\x73";
 	cs.reset();
@@ -95,16 +93,16 @@ void CRCTest::testNetwork ()
 
 	cs << testData << result;
 
-	CPPUNIT_ASSERT (cs.good());
+	TS_ASSERT (cs.good());
 
 	// Test the gen/check routine
 	sResult = cs.gen(testPattern);
-	CPPUNIT_ASSERT (sResult == std::string("\x6E\x90"));
-	CPPUNIT_ASSERT (cs.check(testPattern+sResult));
+	TS_ASSERT (sResult == std::string("\x6E\x90"));
+	TS_ASSERT (cs.check(testPattern+sResult));
 
 	sResult = cs.gen(testData);
-	CPPUNIT_ASSERT (sResult == std::string("\x83\x57"));
-	CPPUNIT_ASSERT (cs.check(std::string(testData)+sResult));
+	TS_ASSERT (sResult == std::string("\x83\x57"));
+	TS_ASSERT (cs.check(std::string(testData)+sResult));
 	std::cout << "OK." << std::endl;
 }
 
@@ -122,7 +120,38 @@ void CRCTest::testEthernet ()
 	// Test data recorded from real ethernet, including CRC
 	std::string sTestData ("\x00\x00\x1a\x18\x26\xb4\x00\x50\x04\x6e\x8b\x4f\x08\x00\x45\x00\x00\x3c\xa6\x42\x00\x00\x80\x01\xec\x5e\xc0\xa8\x13\x07\xc0\xa8\x13\xc8\x08\x00\x48\x5c\x02\x00\x03\x00\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x61\x62\x63\x64\x65\x66\x67\x68\x69\x2c\x71\xa1\x0c", 78);
 
-	CPPUNIT_ASSERT (cs.check(sTestData));
+	TS_ASSERT (cs.check(sTestData));
 
 	std::cout << "OK." << std::endl;
 }
+
+// CxxTest test suite and test names
+static CRCTest suite_CRCTest;
+static CxxTest::List Tests_CRCTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_CRCTest( "CRCTest.cpp", 0, "CRCTest", suite_CRCTest, Tests_CRCTest );
+
+class TestDescription_CRCTest_testNative : public CxxTest::RealTestDescription
+{
+public:
+ TestDescription_CRCTest_testNative() : CxxTest::RealTestDescription( Tests_CRCTest, suiteDescription_CRCTest, 0, "testNative" ) {}
+ void runTest() { suite_CRCTest.testNative(); }
+};
+static TestDescription_CRCTest_testNative testDescription_CRCTest_testNative;
+
+class TestDescription_CRCTest_testNetwork : public CxxTest::RealTestDescription
+{
+public:
+ TestDescription_CRCTest_testNetwork() : CxxTest::RealTestDescription( Tests_CRCTest, suiteDescription_CRCTest, 0, "testNetwork" ) {}
+ void runTest() { suite_CRCTest.testNetwork(); }
+};
+static TestDescription_CRCTest_testNetwork testDescription_CRCTest_testNetwork;
+
+class TestDescription_CRCTest_testEthernet : public CxxTest::RealTestDescription
+{
+public:
+ TestDescription_CRCTest_testEthernet() : CxxTest::RealTestDescription( Tests_CRCTest, suiteDescription_CRCTest, 0, "testEthernet" ) {}
+ void runTest() { suite_CRCTest.testEthernet(); }
+};
+static TestDescription_CRCTest_testEthernet testDescription_CRCTest_testEthernet;
+
+

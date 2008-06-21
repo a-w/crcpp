@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UTest", "UTest\UTest.vcproj", "{9E9F3E07-8827-4726-82FD-7659164E101D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 1
+		SccProjectUniqueName0 = UTest\\UTest.vcproj
+		SccProjectName0 = UTest
+		SccLocalPath0 = UTest
+		SccProvider0 = MSSCCI:Workspaces
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{9E9F3E07-8827-4726-82FD-7659164E101D}.Debug.ActiveCfg = Debug|Win32
+		{9E9F3E07-8827-4726-82FD-7659164E101D}.Debug.Build.0 = Debug|Win32
+		{9E9F3E07-8827-4726-82FD-7659164E101D}.Release.ActiveCfg = Release|Win32
+		{9E9F3E07-8827-4726-82FD-7659164E101D}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
