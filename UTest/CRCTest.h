@@ -39,7 +39,6 @@
 #endif // _MSC_VER > 1000
 
 #include <string>
-//#include <exception>
 #include <cxxtest/TestSuite.h>
 
   /**
@@ -47,11 +46,11 @@
 	* @ingroup Tests
 	* @brief CRC tests
 	*
-	* This test fixture tests the CRC class
+	* This test suite tests the CRC class
 	*
-	* @note You will need the <a href="http://sourceforge.net/projects/cppunit">CppUnit</a>
+	* @note You will need the <a href="http://sourceforge.net/projects/cxxtest">CxxTest</a>
 	* package to compile and run these tests.
-	* CppUnit documentation can be found <a href="http://cppunit.sourceforge.net/">here</a>.
+	* CxxTest documentation can be found <a href="http://cxxtest.sourceforge.net/">here</a>.
 	*/
 
 class CRCTest : public CxxTest::TestSuite  
@@ -89,6 +88,8 @@ public:
   /**
 	* @brief Test CRC-64
 	*
+	* Tests CRC-64 according to test results published in
+	* http://swissknife.sourceforge.net/docs/CRC64.html
 	*/
 	void testCRC64 ();
 

@@ -48,8 +48,8 @@
   	<copy todir="${unixdist}" includeEmptyDirs="No">
 	  <fileset dir=".">
     	<patternset refid="non.objects"/>
-	    <exclude name="*.dsw"/>
-	    <exclude name="**/*.dsp"/>
+	    <exclude name="*.sln"/>
+	    <exclude name="**/*.vcproj"/>
 	    <exclude name="**/*.vbs"/>
     	<exclude name="**/doc/*.chm"/>
 	  </fileset>

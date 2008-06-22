@@ -2,9 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="UTest"
-	SccProjectName="UTest"
-	SccLocalPath=".">
+	Name="UTest">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -38,12 +36,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="cppunit.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/UTest.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="..\Win32\Lib"
-				ForceSymbolReferences="_sTestCRC"
 				ProgramDatabaseFile=".\Release/UTest.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
