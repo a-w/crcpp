@@ -139,7 +139,7 @@ public:
 	{
 		P work = data;
 
-		for (unsigned int i=0; i<sizeof(P::data_type); i++)
+		for (unsigned int i=0; i<sizeof(typename P::data_type); i++)
 		{
 			add (work.hibyte(), reg);
 			work = work.shift(8);

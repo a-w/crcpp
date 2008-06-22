@@ -3,7 +3,7 @@
     Creates the distribution for CRC++
   </description>
 
-  <property name="version" value="1.0"/>
+  <property name="version" value="2.0"/>
   <property name="dist" location="dist"/>
   <property name="winroot" location="windist"/>
   <property name="unixroot"  location="unixdist"/>
@@ -22,13 +22,18 @@
 	    <exclude name="*dist/**"/>
 	    <exclude name="*.ncb"/>
 	    <exclude name="*.opt"/>
+	    <exclude name="*.suo"/>
+	    <exclude name="*.eap"/>
 	    <exclude name="**/Debug/*"/>
 	    <exclude name="**/Release/*"/>
 	    <exclude name="**/*.o"/>
 	    <exclude name="**/*.exe"/>
 	    <exclude name="**/*.plg"/>
+	    <exclude name="**/*.log"/>
+	    <exclude name="**/*.err"/>
 	    <exclude name="**/*.sh"/>
-    	<exclude name="**/Win32/**"/>
+    	<exclude name="**/_svn/**"/>
+    	<exclude name="**/.svn/**"/>
       </patternset>
  
   	<copy todir="${windist}" includeEmptyDirs="No">
@@ -39,7 +44,6 @@
   	</copy>
   	
   	<zip destfile="${dist}/CRC++${version}.zip" basedir="${winroot}" includes="CRC++${version}/**"/>
-	<zip destfile="${dist}/CppUnitWinLibs.zip" basedir="." includes="Win32/**"/>
   	
   	<copy todir="${unixdist}" includeEmptyDirs="No">
 	  <fileset dir=".">

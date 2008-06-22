@@ -29,6 +29,15 @@
 #include <iostream>
 
 #include <cxxtest/RealDescriptions.h>
+
+
+#ifdef WIN32
+	typedef PolyN<unsigned __int64> Poly64N;
+#else
+#	include <stdint.h>
+	typedef PolyN<uint64_t> Poly64N;
+#endif
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -125,6 +134,24 @@ void CRCTest::testEthernet ()
 	std::cout << "OK." << std::endl;
 }
 
+void CRCTest::testCRC64 ()
+{
+	std::cout << "Testing CRC-64...";
+
+	CRC<Poly64N> CRC64 (0xd800000000000000ULL);
+	CRCStream <Poly64N> cs (CRC64,0,0);
+	Poly64N result;
+
+	std::string sTestData ("IHATEMATH");
+	sResult = cs.gen(sTestData);
+	result = cs.CRC();
+
+	TS_ASSERT (result == 0xE3DCADD69B01ADD1ULL);
+	TS_ASSERT (cs.check(sTestData+sResult));
+	std::cout << "OK." << std::endl;
+}
+
+
 // CxxTest test suite and test names
 static CRCTest suite_CRCTest;
 static CxxTest::List Tests_CRCTest = { 0, 0 };
@@ -153,5 +180,13 @@ public:
  void runTest() { suite_CRCTest.testEthernet(); }
 };
 static TestDescription_CRCTest_testEthernet testDescription_CRCTest_testEthernet;
+
+class TestDescription_CRCTest_testCRC64 : public CxxTest::RealTestDescription
+{
+public:
+ TestDescription_CRCTest_testCRC64() : CxxTest::RealTestDescription( Tests_CRCTest, suiteDescription_CRCTest, 0, "testCRC64" ) {}
+ void runTest() { suite_CRCTest.testCRC64(); }
+};
+static TestDescription_CRCTest_testCRC64 testDescription_CRCTest_testCRC64;
 
 

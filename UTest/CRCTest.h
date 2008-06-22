@@ -86,6 +86,12 @@ public:
 	*/
 	void testEthernet ();
 
+  /**
+	* @brief Test CRC-64
+	*
+	*/
+	void testCRC64 ();
+
 private:
 	std::string testPattern;	// A test pattern used in each test
 	std::string sResult;		// holds the generated CRC
