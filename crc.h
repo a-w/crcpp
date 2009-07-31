@@ -1,26 +1,26 @@
 /*
  * $Id$
  * $Date$
- * 
+ *
  * Welcome to CRC++
- * 
+ *
  * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- * 
+ *
  * Please be aware that the GNU GPL does not permit linking with non-free
  * modules. If you wish to include CRC++ into non-free software, you are
  * required to obtain a commercial license from INTEC International GmbH.
@@ -28,7 +28,7 @@
  *   http://www.gnu.org/licenses/gpl-faq.html#GPLInProprietarySystem
  * Our mail address for all enquiries concerning CRC++ is
  *   crcpp@intec-international.com
- * 
+ *
  */
 
 #if !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1__INCLUDED_)
@@ -86,10 +86,10 @@ private:
 };
 
 
-typedef PolyN<unsigned long> Poly32N;
+typedef PolyN<unsigned int> Poly32N;
 typedef PolyN<unsigned short> Poly16N;
 typedef PolyN<unsigned short> Poly8N;
-typedef Poly<unsigned long> Poly32;
+typedef Poly<unsigned int> Poly32;
 typedef Poly<unsigned short> Poly16;
 typedef Poly<unsigned short> Poly8;
 
@@ -98,7 +98,7 @@ typedef Poly<unsigned short> Poly8;
  * @ingroup CRCpp
  */
 
-template <class P> class CRC 
+template <class P> class CRC
 {
 public:
    /**
