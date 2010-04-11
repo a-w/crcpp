@@ -2,9 +2,9 @@
  * $Id$
  * $Date$
  *
- * Welcome to CRC++
+ * This file is part of CRC++
  *
- * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2009 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  *
  * This program is free software; you can redistribute it and/or modify
@@ -39,15 +39,18 @@
  * @brief Contains the template classes which make up CRC++
  */
 
+#include <stdint.h>	// uintxx_t types
+
  /**
  * A polynomial in network order
  * @ingroup CRCpp
  */
 
-template <class T> class PolyN
+template <class T, unsigned int bitsize = sizeof(T) * 8> class PolyN
 {
 public:
 	typedef T	data_type;
+	static unsigned int const numbits = bitsize;
 	PolyN(T v=0) : value(v) {}
 
 	inline operator T() const { return value; }
@@ -65,14 +68,11 @@ private:
  * @ingroup CRCpp
  */
 
-template <class T> class Poly
+template <class T, unsigned int bitsize = sizeof(T) * 8> class Poly
 {
 public:
 	typedef T	data_type;
-	enum
-	{
-		bitsize = sizeof(T) * 8,
-	};
+	static unsigned int const numbits = bitsize;
 	Poly(T v=0) : value(v) {}
 
 	inline operator T() const { return value; }
@@ -86,12 +86,12 @@ private:
 };
 
 
-typedef PolyN<unsigned int> Poly32N;
-typedef PolyN<unsigned short> Poly16N;
-typedef PolyN<unsigned short> Poly8N;
-typedef Poly<unsigned int> Poly32;
-typedef Poly<unsigned short> Poly16;
-typedef Poly<unsigned short> Poly8;
+typedef PolyN<uint32_t> Poly32N;
+typedef PolyN<uint16_t> Poly16N;
+typedef PolyN<uint8_t> Poly8N;
+typedef Poly<uint32_t> Poly32;
+typedef Poly<uint16_t> Poly16;
+typedef Poly<uint8_t> Poly8;
 
 /**
  * The CRC implementation
@@ -101,11 +101,13 @@ typedef Poly<unsigned short> Poly8;
 template <class P> class CRC
 {
 public:
+	typedef P	poly_type;
    /**
 	* Constructor.
 	* @param generator	The generator polynomial
 	*/
 	CRC (P const generator)
+	  : _generator (generator)
 	{
 		for(unsigned int index = 0; index < 256; index++)
 		{
@@ -139,14 +141,29 @@ public:
 	{
 		P work = data;
 
-		for (unsigned int i=0; i<sizeof(typename P::data_type); i++)
+		unsigned int i=P::numbits;
+		for (; i > 7; i -= 8)
 		{
 			add (work.hibyte(), reg);
 			work = work.shift(8);
 		}
+		for (; i > 0; --i)
+		{
+			addbit (work.hibit(), reg);
+			work = work.shift(1);
+		}
+	}
+
+	void addbit (unsigned char bit, P& reg) const
+	{
+		if (bit ^reg.hibit())
+			reg = reg.shift(1) ^ _generator;
+		else
+			reg = reg.shift(1);
 	}
 
 protected:
+	P _generator;
 	P _table[256];
 };
 #endif // !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1__INCLUDED_)

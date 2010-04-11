@@ -2,9 +2,9 @@
  * $Id$
  * $Date$
  *
- * Welcome to CRC++
+ * This file is part of CRC++
  *
- * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2010 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  *
  * This program is free software; you can redistribute it and/or modify
@@ -86,6 +86,25 @@ public:
 	}
 
 
+   /**
+	* Insertion operator for a single byte
+	* @param data a character to add to CRC calculation
+	*/
+	CRCStream<P> & operator << (char const data)
+	{
+		_algorithm.add (data, _crc );
+		return *this;
+	}
+
+  /**
+	* Insertion operator for a single byte
+	* @param data a character to add to CRC calculation
+	*/
+	CRCStream<P> & operator << (unsigned char const data)
+	{
+		_algorithm.add (data, _crc );
+		return *this;
+	}
 
    /**
 	* Insertion operator.for C style strings
@@ -135,7 +154,7 @@ public:
 		char rCRC[sizeof(typename P::data_type)];
 		P nCRC = crc();
 
-		for (size_t i=0; i<sizeof(typename P::data_type);i++)
+		for (size_t i=0; i<sizeof(typename P::data_type); ++i)
 		{
 			rCRC[i] = nCRC.hibyte();
 			nCRC = nCRC.shift(8);
@@ -159,10 +178,28 @@ public:
 	* @retval true CRC is valid
 	* @retval false CRC is invalid
 	*/
-	bool good()
+	bool good() const
 	{
 		P goodcrc = 0;
-		_algorithm.add(_preset,goodcrc);
+		_algorithm.add(_invert,goodcrc);
+		return _crc == goodcrc;
+	};
+
+   /**
+	* Returns whether CRC checking has been successful.
+	* Use if the CRC size is not a multiple of 8 bits, but multiples of 8 bits
+	* have been used to calculate the CRC.
+	* @param extrabits The number of additional bits that have been shifted into the CRC.
+	*      For example if the CRC size is 15 bits, but you have fed two bytes into CRC, specify one bit.
+	* @retval true CRC is valid
+	* @retval false CRC is invalid
+	*/
+	bool good(unsigned int extrabits)
+	{
+		P goodcrc = 0;
+		_algorithm.add(_invert,goodcrc);
+		for (unsigned int i=0; i<extrabits; ++i)
+			_algorithm.addbit (0, goodcrc);
 		return _crc == goodcrc;
 	};
 

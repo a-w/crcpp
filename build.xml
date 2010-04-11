@@ -3,7 +3,7 @@
     Creates the distribution for CRC++
   </description>
 
-  <property name="version" value="2.0"/>
+  <property name="version" value="2.1"/>
   <property name="dist" location="dist"/>
   <property name="winroot" location="windist"/>
   <property name="unixroot"  location="unixdist"/>

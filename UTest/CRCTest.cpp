@@ -4,7 +4,7 @@
  * 
  * CRCTest.cpp: implementation of the CRCTest class.
  * 
- * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2010 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -70,7 +70,7 @@ void CRCTest::testNative ()
 
 	// Basic test
 	cs << testPattern;
-	TS_ASSERT (cs.CRC() == 0xD64E);
+	TS_ASSERT (cs.crc() == 0xD64E);
 	TS_ASSERT (cs.result() == std::string("\xD6\x4E"));
 
 	// Test the gen/check routine
@@ -96,7 +96,7 @@ void CRCTest::testNetwork ()
 	char const * testData = "\x01\x73";
 	cs.reset();
 	cs << testData;
-	result = cs.CRC();
+	result = cs.crc();
 
 	cs.reset();
 
@@ -124,7 +124,7 @@ void CRCTest::testEthernet ()
 	Poly32N result;
 
 	sResult = cs.gen(testPattern);
-	result = cs.CRC();
+	result = cs.crc();
 
 	// Test data recorded from real ethernet, including CRC
 	std::string sTestData ("\x00\x00\x1a\x18\x26\xb4\x00\x50\x04\x6e\x8b\x4f\x08\x00\x45\x00\x00\x3c\xa6\x42\x00\x00\x80\x01\xec\x5e\xc0\xa8\x13\x07\xc0\xa8\x13\xc8\x08\x00\x48\x5c\x02\x00\x03\x00\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x61\x62\x63\x64\x65\x66\x67\x68\x69\x2c\x71\xa1\x0c", 78);
@@ -144,7 +144,7 @@ void CRCTest::testCRC64 ()
 
 	std::string sTestData ("IHATEMATH");
 	sResult = cs.gen(sTestData);
-	result = cs.CRC();
+	result = cs.crc();
 
 	TS_ASSERT (result == 0xE3DCADD69B01ADD1ULL);
 	TS_ASSERT (cs.check(sTestData+sResult));
