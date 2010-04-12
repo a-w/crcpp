@@ -4,7 +4,7 @@
  * 
  * CRCTest.h: interface for the CRCTest class.
  * 
- * Copyright (c) 2003-2008 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2010 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  * 
  * This program is free software; you can redistribute it and/or modify

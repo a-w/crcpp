@@ -4,7 +4,7 @@
  *
  * This file is part of CRC++
  *
- * Copyright (c) 2003-2009 INTEC International GmbH, Hechingen, Germany
+ * Copyright (c) 2003-2010 INTEC International GmbH, Hechingen, Germany
  * Author: Adrian Weiler
  *
  * This program is free software; you can redistribute it and/or modify
@@ -39,8 +39,15 @@
  * @brief Contains the template classes which make up CRC++
  */
 
-#include <stdint.h>	// uintxx_t types
-
+#if defined (WIN32)
+#  include <basetsd.h>
+#  define uint64_t UINT64
+#  define uint32_t UINT32
+#  define uint16_t UINT16
+#  define uint8_t  UINT8
+#else
+#  include <stdint.h>	// uintxx_t types
+#endif
  /**
  * A polynomial in network order
  * @ingroup CRCpp
@@ -54,7 +61,7 @@ public:
 	PolyN(T v=0) : value(v) {}
 
 	inline operator T() const { return value; }
-	inline bool          hibit  () const { return (value&1) != 0; }
+	inline unsigned char hibit  () const { return (value&1) != 0; }
 	inline unsigned char hibyte () const { return (unsigned char) (value & 0xFF); }
 	inline void sethibyte (unsigned char data) { value = data ; }
 	inline T shift (int n) const  { return value >> n; }
@@ -76,7 +83,7 @@ public:
 	Poly(T v=0) : value(v) {}
 
 	inline operator T() const { return value; }
-	inline bool          hibit  () const { return (value & (1 << (bitsize-1))) != 0; }
+	inline unsigned char hibit  () const { return (value & (1 << (bitsize-1))) != 0; }
 	inline unsigned char hibyte () const { return value >> (bitsize-8); }
 	inline void sethibyte (unsigned char data) { value = data << (bitsize-8); } // Needed for table generation
 	inline T shift (int n) const  { return value << n; }
@@ -85,10 +92,11 @@ private:
 	T value;
 };
 
-
+typedef PolyN<uint64_t> Poly64N;
 typedef PolyN<uint32_t> Poly32N;
 typedef PolyN<uint16_t> Poly16N;
 typedef PolyN<uint8_t> Poly8N;
+typedef Poly<uint64_t> Poly64;
 typedef Poly<uint32_t> Poly32;
 typedef Poly<uint16_t> Poly16;
 typedef Poly<uint8_t> Poly8;
@@ -156,7 +164,7 @@ public:
 
 	void addbit (unsigned char bit, P& reg) const
 	{
-		if (bit ^reg.hibit())
+		if (bit ^ reg.hibit())
 			reg = reg.shift(1) ^ _generator;
 		else
 			reg = reg.shift(1);

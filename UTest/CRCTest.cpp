@@ -30,14 +30,6 @@
 
 #include <cxxtest/RealDescriptions.h>
 
-
-#ifdef WIN32
-	typedef PolyN<unsigned __int64> Poly64N;
-#else
-#	include <stdint.h>
-	typedef PolyN<uint64_t> Poly64N;
-#endif
-
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
