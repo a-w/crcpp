@@ -1,9 +1,19 @@
 Welcome to CRC++
 
-Copyright (c) 2003 INTEC International GmbH, Hechingen, Germany
+Copyright (c) 2012 Adrian Weiler, ALDEA Software und Systeme GmbH, Tuebingen, Germany
 
-This is the initial GPL release of CRC++.
-Please read the GNU Public License in the file gpl.txt.
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
 
 What is it?
 ===========
@@ -16,12 +26,6 @@ published in "A Painless Guide to CRC Error Detection Algorithms"
 For any questions, please consult the "Never Asked Questions" list at
 http://www.aweiler.com/crcnaq.html
 
-CRC++ has been tested with CppUnit 1.8.0 in the following configurations:
-Win32/VC++ 6.0
-Win32/Cygwin gcc 3.2
-Linux (RedHat 9.0) gcc 3.2.2
-Solaris 8 (Sparc) gcc 3.3.2
-QNX 6.2 (Intel) QCC/gcc 2.95.3
 
 The reference values for the CRC-CCITT unit tests have been taken from the
 ITU-T recommendation X.25. Those for the CRC32 unit test have been taken from
@@ -37,7 +41,7 @@ directory UTest. For instructions, consult the "Quick Start" section below.
 You will need a recent C++ compiler which knows about templates.
 
 If you wish to compile the unit tests yourself, you will need the
-CppUnit framework, available at http://sourceforge.net/projects/cppunit.
+CxxUnit framework, available at http://sourceforge.net/projects/cxxunit/.
 
 A class reference manual for CRC++ is available in the "doc" directory. This
 manual has been generated from the source code with doxygen. To regenerate it,
@@ -99,5 +103,4 @@ Restrictions
 CRC++ provides a table driven implementation and therefore cannot process
 single bits. For simplicity, the degrees of the CRC polynomials that can be
 implemented using CRC++ are restricted to the bit sizes of available C++
-data types. These are 8, 16, 32 and probably 64. I did not make any tests with
-64 bits, however.
+data types. These are 8, 16, 32 and 64.

@@ -143,6 +143,27 @@ void CRCTest::testCRC64 ()
 	std::cout << "OK." << std::endl;
 }
 
+void CRCTest::testCRC8 ()
+{
+	// ITU-T Recommendation I.432.1 (02/99) X^8 + X^2 + X + 1
+	std::cout << "Testing CRC-8 (ISDN HEC)...";
+
+	CRC<Poly8N> CRC8 (0XE0);
+	CRCStream <Poly8N> cs (CRC8,0,0x55);
+	Poly8N result;
+
+	std::string sTestData ("\0\0\0\0\x55",5);
+	sResult = cs.gen(sTestData);
+	result = cs.crc();
+	TS_ASSERT (result == 0xaf);
+
+	sTestData = "foo-";
+	sResult = cs.gen(sTestData);
+	result = cs.crc();
+	TS_ASSERT (result == 0xaf);
+	TS_ASSERT (cs.check(sTestData+sResult));
+	std::cout << "OK." << std::endl;
+}
 
 // CxxTest test suite and test names
 static CRCTest suite_CRCTest;
@@ -181,4 +202,11 @@ public:
 };
 static TestDescription_CRCTest_testCRC64 testDescription_CRCTest_testCRC64;
 
+class TestDescription_CRCTest_testCRC8 : public CxxTest::RealTestDescription
+{
+public:
+ TestDescription_CRCTest_testCRC8() : CxxTest::RealTestDescription( Tests_CRCTest, suiteDescription_CRCTest, 0, "testCRC8" ) {}
+ void runTest() { suite_CRCTest.testCRC8(); }
+};
+static TestDescription_CRCTest_testCRC8 testDescription_CRCTest_testCRC8;
 

@@ -93,6 +93,12 @@ public:
 	*/
 	void testCRC64 ();
 
+	/**
+	* @brief Test CRC-8 (ITU-T Recommendation I.432.1)
+	*
+	*/
+	void testCRC8 ();
+
 private:
 	std::string testPattern;	// A test pattern used in each test
 	std::string sResult;		// holds the generated CRC
