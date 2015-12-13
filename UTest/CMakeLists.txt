@@ -23,6 +23,16 @@ find_package(CxxTest QUIET)
 if (CXXTEST_FOUND)
     message("CxxTest found. Will build unit tests")
     
+    # Different versions of FindCxxTest.cmake output different variables
+
+    if ("${CXXTEST_TESTGEN_EXECUTABLE}" STREQUAL "" AND NOT("${CXXTESTGEN}" STREQUAL ""))
+        set(CXXTEST_TESTGEN_EXECUTABLE ${CXXTESTGEN})
+    endif()
+
+    if ("${CXXTEST_INCLUDE_DIRS}" STREQUAL "" AND NOT("${CXXTEST_INCLUDES}" STREQUAL ""))
+        set(CXXTEST_INCLUDE_DIRS ${CXXTEST_INCLUDES})
+    endif()
+
     # project properties
     set(EXE_NAME UTest)
 
@@ -33,7 +43,7 @@ if (CXXTEST_FOUND)
     include_directories(.)
     
     # cxxtest
-    include_directories(SYSTEM "${CXXTEST_PATH}")
+    include_directories(SYSTEM "${CXXTEST_INCLUDE_DIRS}")
 
     # Define a list of headers/sources to use
     set(API_HEADERS
@@ -52,8 +62,8 @@ if (CXXTEST_FOUND)
 
     add_custom_command(
         OUTPUT "${CPP_FULL_NAME}"
-        COMMAND ${CXXTESTGEN} --runner=ErrorPrinter --output="${CPP_FULL_NAME}" --world=CRC++ "${CMAKE_CURRENT_SOURCE_DIR}/CRCTest.h"
-        DEPENDS "${API_HEADERS} ${EXE_HEADERS}"
+        COMMAND ${CXXTEST_TESTGEN_EXECUTABLE} --runner=ErrorPrinter --output="${CPP_FULL_NAME}" --world=CRC++ "${CMAKE_CURRENT_SOURCE_DIR}/CRCTest.h"
+        DEPENDS "${EXE_HEADERS}"
     )
     
     # add the executable
