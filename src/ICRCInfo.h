@@ -1,7 +1,9 @@
 /*
- * UTest.cpp: Unit test main program.
- * 
- * Copyright (c) 2012 ALDEA Software und Systeme GmbH, Tuebingen, Germany
+ * ICRCInfo.h
+ *
+ * This file is part of CRC++
+ *
+ * Copyright (c) 2014 ALDEA Software und Systeme GmbH, Tuebingen, Germany
  * Author: Adrian Weiler
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,29 +18,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
+ *  Created on: Apr 16, 2014
  */
 
-#include <string.h>
-#include <stdlib.h> // system()
+#ifndef ICRCINFO_H_
+#define ICRCINFO_H_
 
-#include <iostream>
-#include <fstream>
-
-#ifndef CXXTEST_RUNNING
-#define CXXTEST_RUNNING
-#endif
-
-#define _CXXTEST_HAVE_EH
-#define _CXXTEST_ABORT_TEST_ON_FAIL
-
-
-#include <cxxtest/ErrorPrinter.h>
-
-
-int main()
+class ICRCInfo
 {
-	return CxxTest::ErrorPrinter().run();
-}
+public:
+    virtual ~ICRCInfo() {}
+    virtual bool isNative() const = 0;
+    virtual unsigned int numBits() const = 0;
+    virtual unsigned int numBytes() const = 0;
+    virtual void writePoly(std::ostream& s) const = 0;
+    virtual void writeTable(std::ostream& s) const = 0;
+
+};
 
 
-#include <cxxtest/Root.cpp>
+#endif /* ICRCINFO_H_ */

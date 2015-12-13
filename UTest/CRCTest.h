@@ -1,9 +1,6 @@
 /*
- * $Id$
- * $Date$
- * 
  * CRCTest.h: interface for the CRCTest class.
- * 
+ *
  * Copyright (c) 2012 ALDEA Software und Systeme GmbH, Tuebingen, Germany
  * Author: Adrian Weiler
  *
@@ -38,67 +35,67 @@
 #include <string>
 #include <cxxtest/TestSuite.h>
 
-  /**
-	* @class CRCTest
-	* @ingroup Tests
-	* @brief CRC tests
-	*
-	* This test suite tests the CRC class
-	*
-	* @note You will need the <a href="http://sourceforge.net/projects/cxxtest">CxxTest</a>
-	* package to compile and run these tests.
-	* CxxTest documentation can be found <a href="http://cxxtest.sourceforge.net/">here</a>.
-	*/
+/**
+* @class CRCTest
+* @ingroup Tests
+* @brief CRC tests
+*
+* This test suite tests the CRC class
+*
+* @note You will need the <a href="http://sourceforge.net/projects/cxxtest">CxxTest</a>
+* package to compile and run these tests.
+* CxxTest documentation can be found <a href="http://cxxtest.sourceforge.net/">here</a>.
+*/
 
-class CRCTest : public CxxTest::TestSuite  
+class CRCTest : public CxxTest::TestSuite
 {
 public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-	CRCTest();
-	virtual ~CRCTest();
+    CRCTest();
+    virtual ~CRCTest();
 
-	void setUp();
-	void tearDown(); 
+    void setUp();
+    void tearDown();
 #endif
 
 
-  /**
-	* @brief Test CRC in native bit order
-	*
-	* This tests a CRC CCITT like algorithm, with native bit order
-	*/
-	void testNative ();
+    /**
+    * @brief Test CRC in native bit order
+    *
+    * This tests a CRC CCITT like algorithm, with native bit order
+    */
+    void testNative();
 
-  /**
-	* @brief Test CRC in network bit order
-	*
-	* This tests the CRC CCITT in original definition
-	*/
-	void testNetwork ();
+    /**
+    * @brief Test CRC in network bit order
+    *
+    * This tests the CRC CCITT in original definition
+    */
+    void testNetwork();
 
-  /**
-	* @brief Test Ethernet CRC
-	*
-	*/
-	void testEthernet ();
+    /**
+    * @brief Test Ethernet CRC
+    *
+    */
+    void testEthernet();
 
-  /**
-	* @brief Test CRC-64
-	*
-	* Tests CRC-64 according to test results published in
-	* http://swissknife.sourceforge.net/docs/CRC64.html
-	*/
-	void testCRC64 ();
+    /**
+    * @brief Test CRC-64
+    *
+    * Tests CRC-64 according to test results published in
+    * http://swissknife.sourceforge.net/docs/CRC64.html
+    */
+    void testCRC64();
 
-	/**
-	* @brief Test CRC-8 (ITU-T Recommendation I.432.1)
-	*
-	*/
-	void testCRC8 ();
+    /**
+    * @brief Test CRC-8 (ITU-T Recommendation I.432.1)
+    *
+    */
+    void testCRC8();
 
 private:
-	std::string testPattern;	// A test pattern used in each test
-	std::string sResult;		// holds the generated CRC
+    std::string testPattern;	// A test pattern used in each test
+    std::string sResult;		// holds the generated CRC
 
 };
 #endif // !defined(AFX_CRCTEST_H__6D89A340_D737_4064_B4ED_EFFD994D5EAD__INCLUDED_)

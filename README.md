@@ -16,7 +16,7 @@ Copyright (c) 2012 Adrian Weiler, ALDEA Software und Systeme GmbH, Tuebingen, Ge
 
 
 What is it?
-===========
+-----------
 
 CRC++ is a new reference implementation for the CRC algorithm.
 Its purpose is to complement Ross Williams famous reference implementation
@@ -32,24 +32,23 @@ ITU-T recommendation X.25. Those for the CRC32 unit test have been taken from
 a frame captured from Ethernet.
 
 How to use it?
-==============
+--------------
 
 CRC++ consists of a single file: crc.h.
 To use it, #include "crc.h". An example is provided in the unit test, in the
 directory UTest. For instructions, consult the "Quick Start" section below.
 
-You will need a recent C++ compiler which knows about templates.
-
 If you wish to compile the unit tests yourself, you will need the
 CxxUnit framework, available at http://sourceforge.net/projects/cxxunit/.
+In order to generate the build files for your platform, you will also need
+CMake (https://cmake.org/), and have installed the CxxUnit modules in CMake.
 
-A class reference manual for CRC++ is available in the "doc" directory. This
-manual has been generated from the source code with doxygen. To regenerate it,
-you will need doxygen, available at http://www.doxygen.org/
+A class reference manual for CRC++ is available in the "doc" directory. To
+generate it, you will need doxygen, available at http://www.doxygen.org/
 
 
 Quick Start
-===========
+-----------
 
 First choose a polynomial and a data representation. There are two possible data
 representations: one which I call "native", where the meaning of a bit with the
@@ -96,11 +95,23 @@ CRCStream provides the insertion operator "<<", which can be used to add single
 data bytes, or any STL collection whose elements can be converted to unsigned char.
 For examples, see CRCTest.cpp in directory UTest.
 
+Command Line Tool
+-----------------
+
+Since V3.0, CRC++ comes with a command line tool which allows CRC checking
+of hex data on the command line. Works under Linux and Windows. To build it, you
+will need CMake, available at https://cmake.org/.
 
 Restrictions
-============
+------------
 
 CRC++ provides a table driven implementation and therefore cannot process
 single bits. For simplicity, the degrees of the CRC polynomials that can be
 implemented using CRC++ are restricted to the bit sizes of available C++
 data types. These are 8, 16, 32 and 64.
+
+Credits
+-------
+
+The Windows version of the crc test tool includes software developed by the
+University of California, Berkeley and its contributors.

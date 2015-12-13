@@ -33,16 +33,20 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include <string>
 #endif
-/**
- * @ingroup CRCpp
- * @brief Maintain CRC information for a data stream
- *
- * The CRCStream class is used to generate or check the CRC for a given stream of data.
- * This is merely a frontend for the CRC class, which does the algorithmic work.
- */
 
-template <class P> class CRCStream
+namespace CrcPP
 {
+
+    /**
+     * @ingroup CRCpp
+     * @brief Maintain CRC information for a data stream
+     *
+     * The CRCStream class is used to generate or check the CRC for a given stream of data.
+     * This is merely a frontend for the CRC class, which does the algorithmic work.
+     */
+
+    template <class P> class CRCStream
+    {
     public:
         typedef CRC<P> CRCalgorithm;
 
@@ -300,5 +304,6 @@ template <class P> class CRCStream
         P const         _preset;
         P const         _invert;
 
-};
+    };
+}
 #endif // !defined(EA_814D913B_5D86_45b9_B814_280230E73242__INCLUDED_)
