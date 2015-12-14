@@ -34,6 +34,7 @@
 
 /**
  * A Concrete algorithm
+ * @ingroup Util
  */
 
 template<class P> class CRCAlgorithm :

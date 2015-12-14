@@ -31,6 +31,7 @@ class ICRCAlgorithm;
 
 /**
  * Abstract factory for creating CRC algorithms
+ * @ingroup Util
  */
 class ICRCFactory
 {

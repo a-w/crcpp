@@ -27,6 +27,7 @@
 
 /**
  * Abstract CRC Algorithm
+ * @ingroup Util
  */
 class ICRCAlgorithm
 {

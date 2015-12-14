@@ -24,6 +24,10 @@
 #ifndef ICRCINFO_H_
 #define ICRCINFO_H_
 
+/**
+ * Abstract description for the parameters of a CRC algorithms
+ * @ingroup Util
+ */
 class ICRCInfo
 {
 public:

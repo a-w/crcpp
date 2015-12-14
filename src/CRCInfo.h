@@ -34,6 +34,7 @@ namespace CrcPP
 
 /**
  * CRC information
+ * @ingroup Util
  */
 template <class P> class CRCInfo :
     public ICRCInfo

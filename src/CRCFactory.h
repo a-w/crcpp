@@ -28,7 +28,10 @@
 #include "ICRCInfo.h"
 #include "CRCAlgorithm.h"
 
-
+/**
+ * Interface for CRC factories
+ * @ingroup Util
+ */
 class ICRCWithDescriptionFactory :
     public ICRCFactory
 {
@@ -36,6 +39,10 @@ public:
     virtual ICRCAlgorithm* create(ICRCInfo*& info) const = 0;
 };
 
+/**
+ * A factory for building CRC algorithm implementations
+ * @ingroup Util
+ */
 template<class P> class CRCFactory :
     public ICRCWithDescriptionFactory
 {
@@ -54,7 +61,7 @@ public:
 
     ICRCAlgorithm* create(ICRCInfo*& info) const
     {
-        CRCAlgorithm<P> *crcAlgorithm = new CRCAlgorithm<P> (theGenerator, thePreset, theInvert);
+        CRCAlgorithm<P>* crcAlgorithm = new CRCAlgorithm<P> (theGenerator, thePreset, theInvert);
         info = new CRCInfo<P> (crcAlgorithm->getAlgorithm());
         return crcAlgorithm;
     }
