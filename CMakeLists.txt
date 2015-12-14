@@ -53,8 +53,5 @@ source_group("CRC test utility" FILES ${EXE_HEADERS} ${EXE_SRCS})
 # add the executable
 add_executable(${EXE_NAME} ${API_HEADERS} ${EXE_HEADERS} ${EXE_SRCS})
 
-#strip the debugging symbols
-#strip_binary(${EXE_NAME} 1)
-
-
+# add the unit test
 add_subdirectory(UTest)
