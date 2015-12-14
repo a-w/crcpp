@@ -284,7 +284,7 @@ uint64_t toHex(char const* p, unsigned int maxBytes = 2)
         }
         else
         {
-            std::cerr << "invalid hex char: '" << *p << std::cerr;
+            std::cerr << "invalid hex char: '" << *p << std::endl;
         }
     }
 
