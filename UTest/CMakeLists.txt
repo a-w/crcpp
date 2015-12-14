@@ -21,7 +21,7 @@ endif()
 find_package(CxxTest QUIET)
 
 if (CXXTEST_FOUND)
-    message("CxxTest found. Will build unit tests")
+    message(STATUS "CxxTest found. Will build unit tests: ${CXXTEST_INCLUDE_DIRS}")
     
     # Different versions of FindCxxTest.cmake output different variables
 
@@ -78,5 +78,7 @@ if (CXXTEST_FOUND)
         COMMAND $<TARGET_FILE:${EXE_NAME}>
     )
 else()
-    message("No CxxTest installation found. Unit test will not be built")
+    message(WARNING "CxxTest:  No CxxTest installation found. Unit test will not be built.")
+    message(STATUS "CxxTest:  If it is installed, provide the full path to it with  -DCXXTEST_PATH=<install-path>")
+    message(STATUS "CxxTest:  You can acquire it from: https://sourceforge.net/projects/cxxtest/files/cxxtest/")
 endif()
