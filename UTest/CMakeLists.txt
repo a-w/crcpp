@@ -21,8 +21,6 @@ endif()
 find_package(CxxTest QUIET)
 
 if (CXXTEST_FOUND)
-    message(STATUS "CxxTest found. Will build unit tests: ${CXXTEST_INCLUDE_DIRS}")
-    
     # Different versions of FindCxxTest.cmake output different variables
 
     if ("${CXXTEST_TESTGEN_EXECUTABLE}" STREQUAL "" AND NOT("${CXXTESTGEN}" STREQUAL ""))
@@ -32,7 +30,9 @@ if (CXXTEST_FOUND)
     if ("${CXXTEST_INCLUDE_DIRS}" STREQUAL "" AND NOT("${CXXTEST_INCLUDES}" STREQUAL ""))
         set(CXXTEST_INCLUDE_DIRS ${CXXTEST_INCLUDES})
     endif()
-
+    
+    message(STATUS "Will build unit tests with CxxTest in ${CXXTEST_INCLUDE_DIRS}")
+ 
     # project properties
     set(EXE_NAME UTest)
 
@@ -79,6 +79,10 @@ if (CXXTEST_FOUND)
     )
 else()
     message(WARNING "CxxTest:  No CxxTest installation found. Unit test will not be built.")
-    message(STATUS "CxxTest:  If it is installed, provide the full path to it with  -DCXXTEST_PATH=<install-path>")
-    message(STATUS "CxxTest:  You can acquire it from: https://sourceforge.net/projects/cxxtest/files/cxxtest/")
+    if (WIN32)
+        message(STATUS "CxxTest:  If it is installed, please copy the files FindCxxTest.cmake and CxxTest.cmake from the CxxTest")
+        message(STATUS "          installation to the CMake Modules directory, replacing the original FindCxxTest.cmake. Then provide")
+        message(STATUS "          the full path to the CxxTest installation with  -DCXXTEST_PATH=<install-path>")
+    endif()
+    message(STATUS "CxxTest:  You can acquire CxxTest from: https://sourceforge.net/projects/cxxtest/files/cxxtest/")
 endif()
