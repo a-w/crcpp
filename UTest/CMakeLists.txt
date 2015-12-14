@@ -18,6 +18,10 @@ if ("${CXXTEST_PATH}" STREQUAL "" AND NOT("$ENV{CXXTEST_PATH}" STREQUAL ""))
   set (CXXTEST_PATH $ENV{CXXTEST_PATH})
 endif()
 
+# as of CMake 3.3 we need to prepare FindCxxTest.cmake to use "our" CXX_TEST_PATH
+set(CXXTEST_INCLUDE_DIR ${CXXTEST_PATH})
+set(CXXTEST_PYTHON_TESTGEN_EXECUTABLE ${CXXTEST_PATH}/bin/cxxtestgen)
+
 find_package(CxxTest QUIET)
 
 if (CXXTEST_FOUND)
