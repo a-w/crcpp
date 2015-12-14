@@ -18,6 +18,10 @@ if ("${CXXTEST_PATH}" STREQUAL "" AND NOT("$ENV{CXXTEST_PATH}" STREQUAL ""))
   set (CXXTEST_PATH $ENV{CXXTEST_PATH})
 endif()
 
+# as of CMake 3.3 we need to prepare FindCxxTest.cmake to use "our" CXX_TEST_PATH
+set(CXXTEST_INCLUDE_DIR ${CXXTEST_PATH})
+set(CXXTEST_PYTHON_TESTGEN_EXECUTABLE ${CXXTEST_PATH}/bin/cxxtestgen)
+
 find_package(CxxTest QUIET)
 
 if (CXXTEST_FOUND)
@@ -62,7 +66,7 @@ if (CXXTEST_FOUND)
 
     add_custom_command(
         OUTPUT "${CPP_FULL_NAME}"
-        COMMAND ${CXXTEST_TESTGEN_EXECUTABLE} --runner=ErrorPrinter --output="${CPP_FULL_NAME}" --world=CRC++ "${CMAKE_CURRENT_SOURCE_DIR}/CRCTest.h"
+        COMMAND ${PYTHON_EXECUTABLE} ${CXXTEST_TESTGEN_EXECUTABLE} --runner=ErrorPrinter --output="${CPP_FULL_NAME}" --world=CRC++ "${CMAKE_CURRENT_SOURCE_DIR}/CRCTest.h"
         DEPENDS "${EXE_HEADERS}"
     )
     
