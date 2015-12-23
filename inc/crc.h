@@ -20,8 +20,8 @@
  *
  */
 
-#if !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1__INCLUDED_)
-#define EA_B99886C8_0733_4705_BD37_67537E5E1BD1__INCLUDED_
+#if !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1_INCLUDED_)
+#define EA_B99886C8_0733_4705_BD37_67537E5E1BD1_INCLUDED_
 
 #include <stdexcept>
 
@@ -62,19 +62,19 @@ namespace CrcPP
         {
             return value;
         }
-        inline unsigned char hibit() const
+        inline uint8_t hibit() const
         {
             return (value & 1) != 0;
         }
-        inline unsigned char hibyte() const
+        inline uint8_t hibyte() const
         {
-            return (unsigned char)(value & 0xFF);
+            return static_cast<uint8_t>(value & 0xFF);
         }
-        inline unsigned char lobit() const
+        inline uint8_t lobit() const
         {
-            return (value & ((T)1 << (bitsize - 1))) != 0;
+            return (value & (static_cast<T>(1) << (bitsize - 1))) != 0;
         }
-        inline void sethibyte(unsigned char data)
+        inline void sethibyte(uint8_t data)
         {
             value = data ;
         }
@@ -107,27 +107,27 @@ namespace CrcPP
         {
             return value;
         }
-        inline unsigned char hibit() const
+        inline uint8_t hibit() const
         {
-            return (value & ((T)1 << (bitsize - 1))) != 0;
+            return (value & (static_cast<T>(1) << (bitsize - 1))) != 0;
         }
-        inline unsigned char hibyte() const
+        inline uint8_t hibyte() const
         {
             return value >> (bitsize - 8);
         }
-        inline unsigned char lobit() const
+        inline uint8_t lobit() const
         {
             return (value & 1) != 0;
         }
-        inline void sethibyte(unsigned char data)
+        inline void sethibyte(uint8_t data)
         {
             // Cast to T to avoid implicit promotion to (signed) integer
             // See http://en.cppreference.com/w/cpp/language/implicit_cast
-            value = (T)((T) data << (bitsize - 8));     // Needed for table generation
+            value = static_cast<T>(static_cast<T>(data) << (bitsize - 8));      // Needed for table generation
         }
         inline T shift(int n) const
         {
-            return (T)(value << n);
+            return static_cast<T>(value << n);
         }
 
     private:
@@ -167,7 +167,7 @@ namespace CrcPP
             for (unsigned int index = 0; index < 256; index++)
             {
                 P crc;
-                crc.sethibyte((unsigned char) index);
+                crc.sethibyte(static_cast<uint8_t>(index));
 
                 for (int bit = 0; bit < 8; bit++)
                 {
@@ -184,7 +184,7 @@ namespace CrcPP
         * @param data    the data byte to add
         * @param reg the working register
         */
-        void add(unsigned char data, P& reg) const
+        void add(uint8_t data, P& reg) const
         {
             reg = reg.shift(8) ^ _table[reg.hibyte() ^ data];
         }
@@ -195,11 +195,11 @@ namespace CrcPP
          * @param len  the number of bytes to add
          * @param reg  the working register
          */
-        void add(unsigned char const * data, unsigned int len, P& reg) const
+        void add(uint8_t const* data, unsigned int len, P& reg) const
         {
             while (len > 0)
             {
-                add (*data++, reg);
+                add(*data++, reg);
                 --len;
             }
         }
@@ -228,7 +228,7 @@ namespace CrcPP
             }
         }
 
-        void addbit(unsigned char bit, P& reg) const
+        void addbit(uint8_t bit, P& reg) const
         {
             if (bit ^ reg.hibit())
             {
@@ -254,4 +254,4 @@ namespace CrcPP
         P _table[256];
     };
 }
-#endif // !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1__INCLUDED_)
+#endif // !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1_INCLUDED_)
