@@ -22,6 +22,10 @@
  *  Created on: Apr 16, 2014
  */
 
+// ReSharper disable CppUnusedIncludeDirective
+#include <stdint.h>
+#include <string>
+// ReSharper restore CppUnusedIncludeDirective
 
 /**
  * Abstract CRC Algorithm
@@ -30,6 +34,9 @@
 class ICRCAlgorithm
 {
 public:
+    /// Type of a sequence of (unsigned) bytes
+    typedef std::basic_string<uint8_t> ByteString;
+
     virtual ~ICRCAlgorithm() {}
     /**
      * Add a byte to the CRC calculation
@@ -51,5 +58,5 @@ public:
     /**
      * Gets the current result of CRC computation in a byte order suitable for adding to the output stream.
      */
-    virtual std::string result() const = 0;
+    virtual ByteString result() const = 0;
 };

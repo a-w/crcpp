@@ -34,6 +34,48 @@
 
 namespace CrcPP
 {
+    /**
+     * @ingroup CRCpp
+     * @brief Holds a CRC result in a byte order suitable for insertion into an output stream
+     */
+    template <class P> class CRCResult
+    {
+    public:
+        /**
+         * Construct a CRC result holder
+         * @param	nCRC the CRC value in polynomial representation
+         */
+        explicit CRCResult(P nCRC)
+        {
+            for (size_t i = 0; i < sizeof(typename P::data_type); ++i)
+            {
+                rCRC[i] = nCRC.hibyte();
+                nCRC = nCRC.shift(8);
+            }
+        }
+
+        /**
+         * Retrieves a pointer to the CRC data.
+         * Mimics std::basic_string<uint8_t>::c_str()
+         * @return	A pointer to the first byte to be written to the output stream
+         */
+        uint8_t const* c_str() const
+        {
+            return rCRC;
+        }
+
+        /**
+         * Convenience function to retrieve the number of bytes in the CRC
+         * @return	The number of bytes in the CRC
+         */
+        static size_t size()
+        {
+            return sizeof(typename P::data_type);
+        }
+
+    private:
+        uint8_t rCRC[sizeof(typename P::data_type)];
+    };
 
     /**
      * @ingroup CRCpp
@@ -88,9 +130,9 @@ namespace CrcPP
 
         /**
          * Insertion operator for a single byte
-         * @param data a character to add to CRC calculation
+         * @param data a single byte (unsigned character) to add to CRC calculation
          */
-        CRCStream<P>& operator << (unsigned char const data)
+        CRCStream<P>& operator << (uint8_t const data)
         {
             _algorithm.add(data, _crc);
             return *this;
@@ -146,18 +188,9 @@ namespace CrcPP
          * Return calculated CRC
          * @return result of computation in a byte order suitable for insertion into the output stream
          */
-        std::string result() const
+        CRCResult<P> result() const
         {
-            char rCRC[sizeof(typename P::data_type)];
-            P nCRC = crc();
-
-            for (size_t i = 0; i < sizeof(typename P::data_type); ++i)
-            {
-                rCRC[i] = nCRC.hibyte();
-                nCRC = nCRC.shift(8);
-            }
-
-            return std::string(rCRC, sizeof(rCRC));
+            return CRCResult<P> (crc());
         }
 
 
@@ -232,7 +265,7 @@ namespace CrcPP
          *
          * @see gen (D const &data)
          */
-        std::string gen(char const* data)
+        CRCResult<P> gen(char const* data)
         {
             return gen(std::string(data));
         }
@@ -244,7 +277,7 @@ namespace CrcPP
          *
          * @see gen (D const &data)
          */
-        std::string gen(char const* data, unsigned int len)
+        CRCResult<P> gen(char const* data, unsigned int len)
         {
             return gen(std::string(data, len));
         }
@@ -255,7 +288,7 @@ namespace CrcPP
          *
          * @see operator << (D const &data)
          */
-        template <class D> std::string gen(D const& data)
+        template <class D> CRCResult<P> gen(D const& data)
         {
             reset();
             *this << data;

@@ -63,9 +63,10 @@ private:
     {
         return crcStream.good();
     }
-    std::string result() const
+    ByteString result() const
     {
-        return crcStream.result();
+        CrcPP::CRCResult<P> res = crcStream.result();
+        return std::basic_string<uint8_t>(res.c_str(), res.size());
     }
 
     CrcPP::CRC<P> crcAlgorithm;

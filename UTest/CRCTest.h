@@ -24,7 +24,6 @@
  * @brief Contains the unit tests for CRC++
  */
 
-#include <string>
 #include <cxxtest/TestSuite.h>
 
 /**
@@ -84,9 +83,4 @@ public:
      *
      */
     void testCRC8();
-
-private:
-    std::string testPattern;	// A test pattern used in each test
-    std::string sResult;		// holds the generated CRC
-
 };

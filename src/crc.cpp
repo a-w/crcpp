@@ -649,15 +649,15 @@ int main(int argc, char* argv[])
         ++optind;
     }
 
-    std::string res = algo->result();
+    ICRCAlgorithm::ByteString res = algo->result();
 
     if (binaryOutput)
     {
-        std::cout << res;
+        std::cout.write(reinterpret_cast<char const*>(res.c_str()), res.size());
     }
     else
     {
-        std::cout << HexDump((unsigned char const*) res.c_str(), (unsigned int) res.size());
+        std::cout << HexDump(res.c_str(), res.size());
 
         if (doVerify)
         {
