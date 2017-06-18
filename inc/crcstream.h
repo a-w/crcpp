@@ -28,9 +28,7 @@
 
 #include "crc.h"
 
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#include <string>
-#endif
+
 
 namespace CrcPP
 {
@@ -153,8 +151,8 @@ namespace CrcPP
         }
 
         /**
-         * Insertion operator.for data in STL collections
-         * @param data a std::string or similar collection to add to CRC calculation
+         * Insertion operator.for data in collections
+         * @param data a collection of bytes to add to CRC calculation
          *
          * The main requirement for the collection given in the data parameter is that it
          * has an iterator and that the collection contents are of a data type supported
@@ -256,19 +254,6 @@ namespace CrcPP
             return _invert;
         }
 
-        //
-        // Other helper routines
-        //
-        /**
-         * Generate CRC for C string data
-         * @param data a null terminated character string to add to CRC calculation
-         *
-         * @see gen (D const &data)
-         */
-        CRCResult<P> gen(char const* data)
-        {
-            return gen(std::string(data));
-        }
 
         /**
          * Generate CRC for character data
@@ -277,52 +262,75 @@ namespace CrcPP
          *
          * @see gen (D const &data)
          */
-        CRCResult<P> gen(char const* data, unsigned int len)
+        template<typename D> CRCResult<P> gen(D const* data, unsigned int len)
         {
-            return gen(std::string(data, len));
+            process<D>(data, len);
+            return result();
         }
 
         /**
-         * Generate CRC for data in STL collections
-         * @param data a std::string or similar collection to add to CRC calculation
+         * Generate CRC for data in collections
+         * @param data a collection of bytes to add to CRC calculation
          *
          * @see operator << (D const &data)
          */
         template <class D> CRCResult<P> gen(D const& data)
         {
-            reset();
-            *this << data;
+            process<D>(data);
             return result();
         }
 
         /**
-         * Check CRC for character data
-         * @param data a character string to add to CRC calculation. May contain embedded null characters
-         * @param len the length of the string
+         * Check CRC for byte or character data
+         * @param data a sequence of bytes to add to CRC calculation. May contain embedded null characters
+         * @param len the length of the sequence
          *
          * @see check (D const &data)
          *
-         * @note For checking the length is always required, because the CRC value can contain null characters
          */
-        bool check(char const* data, unsigned int len)
+        template<typename D> bool check(D const* data, unsigned int len)
         {
-            return check(std::string(data, len));
-        }
-
-        /**
-         * Check CRC for data in STL collections
-         * @param data a std::string or similar collection to add to CRC calculation
-         *
-         * @see operator << (D const &data)
-         */
-        template <class D> bool check(D const& data)
-        {
-            reset();
-            *this << data;
+            process<D>(data, len);
             return good();
         }
 
+        /**
+         * Check CRC for data in collections
+         * @param data a collection of bytes to add to CRC calculation
+         *
+         * @see operator << (D const &data)
+         * @note For check() of a byte or character sequence always use the overload with length parameter, because the CRC value can contain null characters
+         */
+        template <class D> bool check(D const& data)
+        {
+            process<D> (data);
+            return good();
+        }
 
+        /**
+         * process a byte sequence
+         * @param	data A pointer to the first byte of the sequence
+         * @param	len The length of the sequence
+         */
+        template <typename D> void process(D const* data, unsigned int len)
+        {
+            reset();
+
+            for (unsigned int i = 0; i < len; ++i)
+            {
+                *this << data[i];
+            }
+        }
+
+        /**
+         * process a collection
+         * @param	data any iterable collection
+         */
+        template <class D> void process(D const& data)
+        {
+            reset();
+            *this << data;
+        }
 
     private:
         CRCalgorithm    _algorithm;
