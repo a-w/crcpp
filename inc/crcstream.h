@@ -162,7 +162,7 @@ namespace CrcPP
         {
             typename D::const_iterator it;
 
-            for (it = data.begin(); it != data.end(); it++)
+            for (it = data.begin(); it != data.end(); ++it)
             {
                 _algorithm.add(*it, _crc);
             }
