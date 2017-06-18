@@ -28,7 +28,17 @@
 
 #include "crc.h"
 
+#if !defined(__cpp_range_based_for)
+#if __cplusplus >= 201103L
+// If the complier is c++11 compliant, it has range based for
+#  define __cpp_range_based_for  200907L
 
+// Visual Studio >= 2012 support range based for
+// recommended by https://isocpp.org/std/standing-documents/sd-6-sg10-feature-test-recommendations
+#elif defined(_MSC_VER) && _MSC_VER >= 1700 && !defined(__cpp_range_based_for)
+#  define __cpp_range_based_for 200907L
+#endif
+#endif
 
 namespace CrcPP
 {
@@ -160,12 +170,22 @@ namespace CrcPP
          */
         template <class D> CRCStream<P>& operator << (D const& data)
         {
+#ifdef  	__cpp_range_based_for
+
+            for (auto const& byte : data)
+            {
+                _algorithm.add(byte, _crc);
+            }
+
+#else
             typename D::const_iterator it;
 
             for (it = data.begin(); it != data.end(); ++it)
             {
                 _algorithm.add(*it, _crc);
             }
+
+#endif
 
             return *this;
         }
