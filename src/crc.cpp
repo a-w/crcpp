@@ -234,7 +234,7 @@ static AlgorithmFactory generics[] =
     { "g32r",  new CRCParameters<CrcPP::Poly32N>(0) },
 
     // CRC-32 Native order
-    { "g32",  new CRCParameters<CrcPP::Poly32> ( 0) },
+    { "g32",  new CRCParameters<CrcPP::Poly32> (0) },
 
 
     // 16-Bit
@@ -355,7 +355,7 @@ void usage(char* progname)
     std::cerr << "-g | --generator specify generator polynomial in hex" << std::endl;
     std::cerr << "-i | --invert    specify invert (xor) in hex" << std::endl;
     std::cerr << "-p | --preset    specify preset value in hex" << std::endl;
-    std::cerr << "-v | --verify    exit with status 0 if CRC is OK, 1 if bad"<< std::endl << std::endl;
+    std::cerr << "-v | --verify    exit with status 0 if CRC is OK, 1 if bad" << std::endl << std::endl;
     std::cerr << "If generator, invert or preset is used, algo must be specified first (to determine the number of bytes)" << std::endl << std::endl;
     std::cerr << "algo is one of: " << std::endl;
 
@@ -374,10 +374,11 @@ void usage(char* progname)
 
         std::cerr << "  " << a->name << " " <<
 
-        f.numBits() << " bits, " << (f.isNative() ? "native" : "network") << " order";
+                  f.numBits() << " bits, " << (f.isNative() ? "native" : "network") << " order";
 
         std::cerr << std::endl;
     }
+
     std::cerr << "These generics do not incude a valid polynomical, so --generator MUST be used." << std::endl << std::endl;
 
     std::cerr << progname << " -s | --search xx xx xx ... search for algorithm giving good crc with that data" << std::endl << std::endl;
@@ -427,91 +428,105 @@ int main(int argc, char* argv[])
 
         switch (opt)
         {
-        case 0:                // long option
-            break;
-        case 'a':
-        {
-            for (AlgorithmFactory** list = lists; *list != 0; ++list)
+            case 0:                // long option
+                break;
+
+            case 'a':
             {
-                for (AlgorithmFactory* a = *list; a->name; ++a)
+                for (AlgorithmFactory** list = lists; *list != 0; ++list)
                 {
-                    if (std::strcmp(a->name, optarg) == 0)
+                    for (AlgorithmFactory* a = *list; a->name; ++a)
                     {
-                        theFactory = a->factory;
+                        if (std::strcmp(a->name, optarg) == 0)
+                        {
+                            theFactory = a->factory;
+                            break;
+                        }
+                    }
+
+                    if (theFactory != 0)
+                    {
                         break;
                     }
                 }
-                if (theFactory != 0)
+
+                if (theFactory == 0)
                 {
-                    break;
+                    std::cerr << "No algorithm with that name: " << optarg << std::endl;
+                    usage(argv[0]);
+                    return 1;
                 }
             }
+            break;
 
-            if (theFactory == 0)
-            {
-                std::cerr << "No algorithm with that name: " << optarg << std::endl;
+            case 'b':
+                binaryOutput = true;
+                break;
+
+            case 'g':
+                if (theFactory == 0)
+                {
+                    std::cerr << "Base algorithm must be specified before --generator" << std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                else
+                {
+                    uint64_t generator = toHex(optarg, theFactory->numBytes() * 2);
+                    theFactory->getFactory().setGenerator(generator);
+                }
+
+                break;
+
+            case 'h':
                 usage(argv[0]);
-                return 1;
-            }
-        }
-        break;
-        case 'b':
-            binaryOutput = true;
-            break;
-        case 'g':
-            if (theFactory == 0)
-            {
-                std::cerr << "Base algorithm must be specified before --generator" << std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-            else
-            {
-                uint64_t generator = toHex(optarg, theFactory->numBytes() * 2);
-                theFactory->getFactory().setGenerator(generator);
-            }
-            break;
-        case 'h':
-            usage(argv[0]);
-            return 0;
-        case 'i':
-            if (theFactory == 0)
-            {
-                std::cerr << "Base algorithm must be specified before --invert" << std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-            else
-            {
-                uint64_t invert = toHex(optarg, theFactory->numBytes() * 2);
-                theFactory->getFactory().setInvert(invert);
-            }
-            break;
-        case 'p':
-            if (theFactory == 0)
-            {
-                std::cerr << "Base algorithm must be specified before --preset" << std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-            else
-            {
-                uint64_t preset = toHex(optarg, theFactory->numBytes() * 2);
-                theFactory->getFactory().setPreset(preset);
-            }
-            break;
-        case 's':
-            doSearch = true;
-            break;
-        case 'v':
-            doVerify = true;
-            break;
-        case 'V':
-            ++verbosity;
-            break;
-        case 'w':
-            doWriteTable = true;
-            break;
+                return 0;
+
+            case 'i':
+                if (theFactory == 0)
+                {
+                    std::cerr << "Base algorithm must be specified before --invert" << std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                else
+                {
+                    uint64_t invert = toHex(optarg, theFactory->numBytes() * 2);
+                    theFactory->getFactory().setInvert(invert);
+                }
+
+                break;
+
+            case 'p':
+                if (theFactory == 0)
+                {
+                    std::cerr << "Base algorithm must be specified before --preset" << std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                else
+                {
+                    uint64_t preset = toHex(optarg, theFactory->numBytes() * 2);
+                    theFactory->getFactory().setPreset(preset);
+                }
+
+                break;
+
+            case 's':
+                doSearch = true;
+                break;
+
+            case 'v':
+                doVerify = true;
+                break;
+
+            case 'V':
+                ++verbosity;
+                break;
+
+            case 'w':
+                doWriteTable = true;
+                break;
         }
     }
     while (true);    // end by explicit break
@@ -648,6 +663,7 @@ int main(int argc, char* argv[])
         {
             std::cout << (theTest->getAlgorithm()->good() ? " (OK)" : " (BAD)");
         }
+
         std::cout << std::endl;
     }
 
