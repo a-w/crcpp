@@ -1,3 +1,4 @@
+#pragma once
 /*
  * ICRCFactory.h
  *
@@ -20,9 +21,6 @@
  *
  *  Created on: Apr 16, 2014
  */
-
-#ifndef ICRCFACTORY_H_
-#define ICRCFACTORY_H_
 
 #include <stdint.h>
 
@@ -72,5 +70,3 @@ public:
      */
     virtual void setInvert(uint64_t anInvert) = 0;
 };
-
-#endif /* ICRCFACTORY_H_ */

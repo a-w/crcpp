@@ -1,3 +1,4 @@
+#pragma once
 /*
  * crcstream.h
  *
@@ -19,9 +20,6 @@
  *  limitations under the License.
  *
  */
-
-#if !defined(EA_814D913B_5D86_45b9_B814_280230E73242_INCLUDED_)
-#define EA_814D913B_5D86_45b9_B814_280230E73242_INCLUDED_
 
 /**
  * @file crcstream.h
@@ -306,4 +304,3 @@ namespace CrcPP
 
     };
 }
-#endif // !defined(EA_814D913B_5D86_45b9_B814_280230E73242_INCLUDED_)

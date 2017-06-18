@@ -1,3 +1,4 @@
+#pragma once
 /*
  * CRCTest.h: interface for the CRCTest class.
  *
@@ -18,19 +19,10 @@
  *
  */
 
-#if !defined(AFX_CRCTEST_H__6D89A340_D737_4064_B4ED_EFFD994D5EAD__INCLUDED_)
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-#  define AFX_CRCTEST_H__6D89A340_D737_4064_B4ED_EFFD994D5EAD__INCLUDED_
-#endif
-
 /**
  * @file CRCTest.h
  * @brief Contains the unit tests for CRC++
  */
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
 
 #include <string>
 #include <cxxtest/TestSuite.h>
@@ -98,4 +90,3 @@ private:
     std::string sResult;		// holds the generated CRC
 
 };
-#endif // !defined(AFX_CRCTEST_H__6D89A340_D737_4064_B4ED_EFFD994D5EAD__INCLUDED_)

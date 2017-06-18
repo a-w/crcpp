@@ -1,3 +1,4 @@
+#pragma once
 /*
  * CRCFactory.h
  *
@@ -20,9 +21,6 @@
  *
  *  Created on: Apr 16, 2014
  */
-
-#ifndef CRCFACTORY_H_
-#define CRCFACTORY_H_
 
 #include "ICRCFactory.h"
 #include "ICRCInfo.h"
@@ -98,5 +96,3 @@ private:
     typename P::data_type thePreset;
     typename P::data_type theInvert;
 };
-
-#endif /* CRCFACTORY_H_ */

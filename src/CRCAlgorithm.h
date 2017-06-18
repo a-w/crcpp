@@ -1,3 +1,4 @@
+#pragma once
 /*
  * CRCAlgorithm.h
  *
@@ -20,9 +21,6 @@
  *
  *  Created on: Apr 16, 2014
  */
-
-#ifndef CRCALGORITHM_H_
-#define CRCALGORITHM_H_
 
 #include "ICRCAlgorithm.h"
 #include "CRCInfo.h"
@@ -73,6 +71,3 @@ private:
     CrcPP::CRC<P> crcAlgorithm;
     CrcPP::CRCStream<P> crcStream;
 };
-
-
-#endif /* CRCALGORITHM_H_ */

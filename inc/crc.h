@@ -1,3 +1,4 @@
+#pragma once
 /*
  * crc.h
  *
@@ -19,9 +20,6 @@
  *  limitations under the License.
  *
  */
-
-#if !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1_INCLUDED_)
-#define EA_B99886C8_0733_4705_BD37_67537E5E1BD1_INCLUDED_
 
 #include <stdexcept>
 
@@ -254,4 +252,3 @@ namespace CrcPP
         P _table[256];
     };
 }
-#endif // !defined(EA_B99886C8_0733_4705_BD37_67537E5E1BD1_INCLUDED_)

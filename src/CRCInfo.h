@@ -1,3 +1,4 @@
+#pragma once
 /*
  * CRCInfo.h
  *
@@ -20,9 +21,6 @@
  *
  *  Created on: Apr 16, 2014
  */
-
-#ifndef CRCINFO_H_
-#define CRCINFO_H_
 
 #include "ICRCInfo.h"
 
@@ -129,5 +127,3 @@ public:
 private:
     CrcPP::CRC<P> const& _algorithm;
 };
-
-#endif /* CRCINFO_H_ */

@@ -1,6 +1,4 @@
-#ifndef __GETOPT_H__
-#define __GETOPT_H__
-
+#pragma once
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,5 +27,3 @@ int getopt_long(int, char**, char*, struct option*, int*);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* __GETOPT_H__ */

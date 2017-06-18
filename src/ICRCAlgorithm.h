@@ -1,3 +1,4 @@
+#pragma once
 /*
  * ICRCAlgorithm.h
  *
@@ -20,9 +21,6 @@
  *
  *  Created on: Apr 16, 2014
  */
-
-#ifndef ICRCALGORITHM_H_
-#define ICRCALGORITHM_H_
 
 
 /**
@@ -55,6 +53,3 @@ public:
      */
     virtual std::string result() const = 0;
 };
-
-
-#endif /* ICRCALGORITHM_H_ */

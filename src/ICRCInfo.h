@@ -1,3 +1,4 @@
+#pragma once
 /*
  * ICRCInfo.h
  *
@@ -21,9 +22,6 @@
  *  Created on: Apr 16, 2014
  */
 
-#ifndef ICRCINFO_H_
-#define ICRCINFO_H_
-
 /**
  * Abstract description for the parameters of a CRC algorithms
  * @ingroup Util
@@ -39,6 +37,3 @@ public:
     virtual void writeTable(std::ostream& s) const = 0;
 
 };
-
-
-#endif /* ICRCINFO_H_ */
