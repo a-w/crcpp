@@ -56,27 +56,27 @@ namespace CrcPP
          * Allow to access the polynomial as its integer type.
          * @return the value of the polynomial
          */
-        inline operator T() const
+        operator T() const
         {
             return value;
         }
-        inline uint8_t hibit() const
+        uint8_t hibit() const
         {
             return (value & 1) != 0;
         }
-        inline uint8_t hibyte() const
+        uint8_t hibyte() const
         {
             return static_cast<uint8_t>(value & 0xFF);
         }
-        inline uint8_t lobit() const
+        uint8_t lobit() const
         {
             return (value & (static_cast<T>(1) << (bitsize - 1))) != 0;
         }
-        inline void sethibyte(uint8_t data)
+        void sethibyte(uint8_t data)
         {
             value = data ;
         }
-        inline T shift(int n) const
+        T shift(int n) const
         {
             return value >> n;
         }
@@ -101,29 +101,29 @@ namespace CrcPP
          * Allow to access the polynomial as its integer type.
          * @return the value of the polynomial
          */
-        inline operator T() const
+        operator T() const
         {
             return value;
         }
-        inline uint8_t hibit() const
+        uint8_t hibit() const
         {
             return (value & (static_cast<T>(1) << (bitsize - 1))) != 0;
         }
-        inline uint8_t hibyte() const
+        uint8_t hibyte() const
         {
             return value >> (bitsize - 8);
         }
-        inline uint8_t lobit() const
+        uint8_t lobit() const
         {
             return (value & 1) != 0;
         }
-        inline void sethibyte(uint8_t data)
+        void sethibyte(uint8_t data)
         {
             // Cast to T to avoid implicit promotion to (signed) integer
             // See http://en.cppreference.com/w/cpp/language/implicit_cast
             value = static_cast<T>(static_cast<T>(data) << (bitsize - 8));      // Needed for table generation
         }
-        inline T shift(int n) const
+        T shift(int n) const
         {
             return static_cast<T>(value << n);
         }
