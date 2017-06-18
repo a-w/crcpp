@@ -49,10 +49,10 @@ namespace CrcPP
         typedef CRC<P> CRCalgorithm;
 
         /**
-        * Constructor. Preset and inversion are set
-        * @param algorithm   The CRC algorithm to use
-        *
-        */
+         * Constructor. Preset and inversion are set
+         * @param algorithm   The CRC algorithm to use
+         *
+         */
         CRCStream(CRC<P> const& algorithm)
             : _algorithm(algorithm),
               _preset(~0),
@@ -62,11 +62,11 @@ namespace CrcPP
         }
 
         /**
-        * Constructor which allows to specify preset and invert.
-        * @param algorithm   The CRC algorithm to use
-        * @param preset      The preset value
-        * @param invert      The inversion value for the returned CRC
-        */
+         * Constructor which allows to specify preset and invert.
+         * @param algorithm   The CRC algorithm to use
+         * @param preset      The preset value
+         * @param invert      The inversion value for the returned CRC
+         */
         CRCStream(CRC<P> const& algorithm, typename P::data_type preset, typename P::data_type invert)
             : _algorithm(algorithm),
               _preset(preset),
@@ -77,9 +77,9 @@ namespace CrcPP
 
 
         /**
-        * Insertion operator for a single byte
-        * @param data a character to add to CRC calculation
-        */
+         * Insertion operator for a single byte
+         * @param data a character to add to CRC calculation
+         */
         CRCStream<P>& operator << (char const data)
         {
             _algorithm.add(data, _crc);
@@ -87,9 +87,9 @@ namespace CrcPP
         }
 
         /**
-        * Insertion operator for a single byte
-        * @param data a character to add to CRC calculation
-        */
+         * Insertion operator for a single byte
+         * @param data a character to add to CRC calculation
+         */
         CRCStream<P>& operator << (unsigned char const data)
         {
             _algorithm.add(data, _crc);
@@ -97,9 +97,9 @@ namespace CrcPP
         }
 
         /**
-        * Insertion operator.for C style strings
-        * @param data a null terminated character string to add to CRC calculation
-        */
+         * Insertion operator.for C style strings
+         * @param data a null terminated character string to add to CRC calculation
+         */
         CRCStream<P>& operator << (char const* data)
         {
             while (*data)
@@ -111,13 +111,13 @@ namespace CrcPP
         }
 
         /**
-        * Insertion operator.for data in STL collections
-        * @param data a std::string or similar collection to add to CRC calculation
-        *
-        * The main requirement for the collection given in the data parameter is that it
-        * has an iterator and that the collection contents are of a data type supported
-        * by the CRC class.
-        */
+         * Insertion operator.for data in STL collections
+         * @param data a std::string or similar collection to add to CRC calculation
+         *
+         * The main requirement for the collection given in the data parameter is that it
+         * has an iterator and that the collection contents are of a data type supported
+         * by the CRC class.
+         */
         template <class D> CRCStream<P>& operator << (D const& data)
         {
             typename D::const_iterator it;
@@ -131,11 +131,11 @@ namespace CrcPP
         }
 
         /**
-        * Insertion operator.for data in polynomial representation
-        * @param data a P to be included in the calculation
-        *
-        * This is mainly useful for test, in order to check whether the calculated CRC is OK.
-        */
+         * Insertion operator.for data in polynomial representation
+         * @param data a P to be included in the calculation
+         *
+         * This is mainly useful for test, in order to check whether the calculated CRC is OK.
+         */
         CRCStream<P>& operator << (P const& data)
         {
             _algorithm.add(data, _crc);
@@ -143,9 +143,9 @@ namespace CrcPP
         }
 
         /**
-        * Return calculated CRC
-        * @return result of computation in a byte order suitable for insertion into the output stream
-        */
+         * Return calculated CRC
+         * @return result of computation in a byte order suitable for insertion into the output stream
+         */
         std::string result() const
         {
             char rCRC[sizeof(typename P::data_type)];
@@ -162,9 +162,9 @@ namespace CrcPP
 
 
         /**
-        * Return calculated CRC
-        * @return result of computation in raw format
-        */
+         * Return calculated CRC
+         * @return result of computation in raw format
+         */
 
         P crc() const
         {
@@ -172,10 +172,10 @@ namespace CrcPP
         }
 
         /**
-        * Returns whether CRC checking has been successful
-        * @retval true CRC is valid
-        * @retval false CRC is invalid
-        */
+         * Returns whether CRC checking has been successful
+         * @retval true CRC is valid
+         * @retval false CRC is invalid
+         */
         bool good() const
         {
             P goodcrc = 0;
@@ -184,14 +184,14 @@ namespace CrcPP
         }
 
         /**
-        * Returns whether CRC checking has been successful.
-        * Use if the CRC size is not a multiple of 8 bits, but multiples of 8 bits
-        * have been used to calculate the CRC.
-        * @param extrabits The number of additional bits that have been shifted into the CRC.
-        *      For example if the CRC size is 15 bits, but you have fed two bytes into CRC, specify one bit.
-        * @retval true CRC is valid
-        * @retval false CRC is invalid
-        */
+         * Returns whether CRC checking has been successful.
+         * Use if the CRC size is not a multiple of 8 bits, but multiples of 8 bits
+         * have been used to calculate the CRC.
+         * @param extrabits The number of additional bits that have been shifted into the CRC.
+         *      For example if the CRC size is 15 bits, but you have fed two bytes into CRC, specify one bit.
+         * @retval true CRC is valid
+         * @retval false CRC is invalid
+         */
         bool good(unsigned int extrabits)
         {
             P goodcrc = 0;
@@ -211,53 +211,50 @@ namespace CrcPP
             _crc = _preset;
         }
 
-        // Get the preset value
+        /// Get the preset value
         P preset() const
         {
             return _preset;
         }
 
-        // Get the invert (xor) value
+        /// Get the invert (xor) value
         P invert() const
         {
             return _invert;
         }
 
-        /////////////////////////////////////////////////////
+        //
         // Other helper routines
-        /////////////////////////////////////////////////////
+        //
         /**
-        * Generate CRC for C string data
-        * @param data a null terminated character string to add to CRC calculation
-        *
-        * @see gen (D const &data)
-        */
-
+         * Generate CRC for C string data
+         * @param data a null terminated character string to add to CRC calculation
+         *
+         * @see gen (D const &data)
+         */
         std::string gen(char const* data)
         {
             return gen(std::string(data));
         }
 
         /**
-        * Generate CRC for character data
-        * @param data a character string to add to CRC calculation. May contain embedded null characters
-        * @param len the length of the string
-        *
-        * @see gen (D const &data)
-        */
-
+         * Generate CRC for character data
+         * @param data a character string to add to CRC calculation. May contain embedded null characters
+         * @param len the length of the string
+         *
+         * @see gen (D const &data)
+         */
         std::string gen(char const* data, unsigned int len)
         {
             return gen(std::string(data, len));
         }
 
         /**
-        * Generate CRC for data in STL collections
-        * @param data a std::string or similar collection to add to CRC calculation
-        *
-        * @see operator << (D const &data)
-        */
-
+         * Generate CRC for data in STL collections
+         * @param data a std::string or similar collection to add to CRC calculation
+         *
+         * @see operator << (D const &data)
+         */
         template <class D> std::string gen(D const& data)
         {
             reset();
@@ -266,27 +263,25 @@ namespace CrcPP
         }
 
         /**
-        * Check CRC for character data
-        * @param data a character string to add to CRC calculation. May contain embedded null characters
-        * @param len the length of the string
-        *
-        * @see check (D const &data)
-        *
-        * @note For checking the length is always required, because the CRC value can contain null charaters
-        */
-
+         * Check CRC for character data
+         * @param data a character string to add to CRC calculation. May contain embedded null characters
+         * @param len the length of the string
+         *
+         * @see check (D const &data)
+         *
+         * @note For checking the length is always required, because the CRC value can contain null characters
+         */
         bool check(char const* data, unsigned int len)
         {
             return check(std::string(data, len));
         }
 
         /**
-        * Check CRC for data in STL collections
-        * @param data a std::string or similar collection to add to CRC calculation
-        *
-        * @see operator << (D const &data)
-        */
-
+         * Check CRC for data in STL collections
+         * @param data a std::string or similar collection to add to CRC calculation
+         *
+         * @see operator << (D const &data)
+         */
         template <class D> bool check(D const& data)
         {
             reset();

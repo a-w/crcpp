@@ -28,16 +28,16 @@
 #include <cxxtest/TestSuite.h>
 
 /**
-* @class CRCTest
-* @ingroup Tests
-* @brief CRC tests
-*
-* This test suite tests the CRC class
-*
-* @note You will need the <a href="http://sourceforge.net/projects/cxxtest">CxxTest</a>
-* package to compile and run these tests.
-* CxxTest documentation can be found <a href="http://cxxtest.sourceforge.net/">here</a>.
-*/
+ * @class CRCTest
+ * @ingroup Tests
+ * @brief CRC tests
+ *
+ * This test suite tests the CRC class
+ *
+ * @note You will need the <a href="http://sourceforge.net/projects/cxxtest">CxxTest</a>
+ * package to compile and run these tests.
+ * CxxTest documentation can be found <a href="http://cxxtest.sourceforge.net/">here</a>.
+ */
 
 class CRCTest : public CxxTest::TestSuite
 {
@@ -52,37 +52,37 @@ public:
 
 
     /**
-    * @brief Test CRC in native bit order
-    *
-    * This tests a CRC CCITT like algorithm, with native bit order
-    */
+     * @brief Test CRC in native bit order
+     *
+     * This tests a CRC CCITT like algorithm, with native bit order
+     */
     void testNative();
 
     /**
-    * @brief Test CRC in network bit order
-    *
-    * This tests the CRC CCITT in original definition
-    */
+     * @brief Test CRC in network bit order
+     *
+     * This tests the CRC CCITT in original definition
+     */
     void testNetwork();
 
     /**
-    * @brief Test Ethernet CRC
-    *
-    */
+     * @brief Test Ethernet CRC
+     *
+     */
     void testEthernet();
 
     /**
-    * @brief Test CRC-64
-    *
-    * Tests CRC-64 according to test results published in
-    * http://swissknife.sourceforge.net/docs/CRC64.html
-    */
+     * @brief Test CRC-64
+     *
+     * Tests CRC-64 according to test results published in
+     * http://swissknife.sourceforge.net/docs/CRC64.html
+     */
     void testCRC64();
 
     /**
-    * @brief Test CRC-8 (ITU-T Recommendation I.432.1)
-    *
-    */
+     * @brief Test CRC-8 (ITU-T Recommendation I.432.1)
+     *
+     */
     void testCRC8();
 
 private:

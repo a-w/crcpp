@@ -41,9 +41,9 @@
 namespace CrcPP
 {
     /**
-    * A polynomial in network order
-    * @ingroup CRCpp
-    */
+     * A polynomial in network order
+     * @ingroup CRCpp
+     */
 
     template <class T, unsigned int bitsize = sizeof(T) * 8> class PolyN
     {
@@ -151,9 +151,9 @@ namespace CrcPP
     public:
         typedef P   poly_type;
         /**
-        * Constructor.
-        * @param generator   The generator polynomial
-        */
+         * Constructor.
+         * @param generator   The generator polynomial
+         */
         CRC(P const generator) :
             _generator(generator)
         {
@@ -178,10 +178,10 @@ namespace CrcPP
         }
 
         /**
-        * Add a single byte to the calculation.
-        * @param data    the data byte to add
-        * @param reg the working register
-        */
+         * Add a single byte to the calculation.
+         * @param data    the data byte to add
+         * @param reg the working register
+         */
         void add(uint8_t data, P& reg) const
         {
             reg = reg.shift(8) ^ _table[reg.hibyte() ^ data];
@@ -203,10 +203,10 @@ namespace CrcPP
         }
 
         /**
-        * Add n bits to the calculation.
-        * @param data    the data to add
-        * @param reg the working register
-        */
+         * Add n bits to the calculation.
+         * @param data    the data to add
+         * @param reg the working register
+         */
         void add(P const& data, P& reg) const
         {
             P work = data;
