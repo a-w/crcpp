@@ -52,7 +52,7 @@ namespace
     }
 
     // A test pattern used in each test
-    ByteString testPattern(reinterpret_cast<uint8_t*>("123456789"));
+    ByteString testPattern(reinterpret_cast<uint8_t const*>("123456789"));
 }
 
 CRCTest::CRCTest()
