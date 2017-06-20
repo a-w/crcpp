@@ -35,7 +35,7 @@
 
 // Visual Studio >= 2012 support range based for
 // recommended by https://isocpp.org/std/standing-documents/sd-6-sg10-feature-test-recommendations
-#elif defined(_MSC_VER) && _MSC_VER >= 1700 && !defined(__cpp_range_based_for)
+#elif defined(_MSC_VER) && _MSC_VER >= 1700
 #  define __cpp_range_based_for 200907L
 #endif
 #endif
