@@ -45,8 +45,8 @@ public:
     CRCTest();
     virtual ~CRCTest();
 
-    void setUp();
-    void tearDown();
+    void setUp() override;
+    void tearDown() override;
 #endif
 
 
