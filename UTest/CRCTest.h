@@ -83,4 +83,10 @@ public:
      *
      */
     static void testCrc8();
+
+    /**
+     * @brief Test CAN CRC - 15 bits wide
+     * Test CAN CRC_15 described in ISO 11898-1:2015(E)
+     */
+    static void testCanCrC15();
 };

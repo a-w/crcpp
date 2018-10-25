@@ -189,3 +189,47 @@ void CRCTest::testCrc8()
     TS_ASSERT(cs.check(sTestData + sResult));
     std::cout << "OK." << std::endl;
 }
+
+void CRCTest::testCanCrC15()
+{
+    std::cout << "Testing CAN CRC...";
+
+    using Poly15 = CrcPP::Poly<uint16_t, 15>;
+
+    CRC<Poly15> const canCrc(0x4599); // x^15 + x^14 + x^10 + x^8 + x^7 + x^4 + x^3 + 1
+    CRCStream <Poly15> cs(canCrc, 0, 0);
+
+    // Test data taken from CAN frame recorded with a logic analyzer
+
+    cs.addBit(0)  // SOM
+    .addBit(0);   // ID28
+
+    cs << uint8_t(0xc2);   // ID27..ID20
+
+    cs.addBit(0) // ID19
+    .addBit(1)   // ID18
+    .addBit(1)   // SRR
+    .addBit(1)   // IDE
+    .addBit(1)   // ID17
+    .addBit(1);  // ID16
+
+    cs << uint8_t(0x00);   // ID15..ID8
+    cs << uint8_t(0x04);   // ID07..ID0
+
+    cs.addBit(0) // RTR
+    .addBit(0)   // Res1
+    .addBit(0)   // Res2
+    .addBit(0)   // DLC3
+    .addBit(0)   // DLC2
+    .addBit(1)   // DLC1
+    .addBit(0);  // DLC0
+
+    cs << uint8_t(0x01);   // Data
+    cs << uint8_t(0x00);   // Data
+
+    // Current implementation may leave extra bits if size smaller then underlying integer size. Mask out.
+    auto const result = cs.crc() & 0x7fff;
+
+    // Recorded test data concatenates CRC and (recessive) delimiter bit to one 16 bit word
+    TS_ASSERT((result << 1 | 1) == 0xe961);
+}
