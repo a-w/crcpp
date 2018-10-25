@@ -203,6 +203,16 @@ namespace CrcPP
         }
 
         /**
+         *	Add a single bit
+         *	@param bit The bit to add. Only the lowest bit is used
+         */
+        CRCStream<P>& addBit(uint8_t bit)
+        {
+            _algorithm.addbit(bit, _crc);
+            return *this;
+        }
+
+        /**
          * Return calculated CRC
          * @return result of computation in a byte order suitable for insertion into the output stream
          */
