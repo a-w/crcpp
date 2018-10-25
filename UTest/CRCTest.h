@@ -55,20 +55,20 @@ public:
      *
      * This tests a CRC CCITT like algorithm, with native bit order
      */
-    void testNative();
+    static void testNative();
 
     /**
      * @brief Test CRC in network bit order
      *
      * This tests the CRC CCITT in original definition
      */
-    void testNetwork();
+    static void testNetwork();
 
     /**
      * @brief Test Ethernet CRC
      *
      */
-    void testEthernet();
+    static void testEthernet();
 
     /**
      * @brief Test CRC-64
@@ -76,11 +76,11 @@ public:
      * Tests CRC-64 according to test results published in
      * http://swissknife.sourceforge.net/docs/CRC64.html
      */
-    void testCRC64();
+    static void testCrc64();
 
     /**
      * @brief Test CRC-8 (ITU-T Recommendation I.432.1)
      *
      */
-    void testCRC8();
+    static void testCrc8();
 };

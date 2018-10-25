@@ -149,7 +149,7 @@ void CRCTest::testEthernet()
     std::cout << "OK." << std::endl;
 }
 
-void CRCTest::testCRC64()
+void CRCTest::testCrc64()
 {
     std::cout << "Testing CRC-64...";
 
@@ -166,7 +166,7 @@ void CRCTest::testCRC64()
     std::cout << "OK." << std::endl;
 }
 
-void CRCTest::testCRC8()
+void CRCTest::testCrc8()
 {
     // ITU-T Recommendation I.432.1 (02/99) X^8 + X^2 + X + 1
     std::cout << "Testing CRC-8 (ISDN HEC)...";
